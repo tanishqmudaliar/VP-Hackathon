@@ -1,0 +1,8 @@
+.header {
+    max-height: 10vh;
+    display: flex;
+}
+
+.logo {
+    width: 150px;
+}

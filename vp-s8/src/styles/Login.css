@@ -1,0 +1,23 @@
+.login {
+    display: grid;
+    place-items: center;
+}
+
+.lgform {
+    margin-top: 25vh;
+    width: 50vw;
+    height: 50vh;
+    border-radius: 30px;
+    box-shadow: -1px 4px 16px -4px black;
+}
+
+.logo {
+    width: 300px;
+    margin-top: -55px;
+    pointer-events: none;
+}
+
+.lgform > h1 {
+    margin-top: -70px;
+    font-family: 'Libre Franklin', sans-serif;
+}

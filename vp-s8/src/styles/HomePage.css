@@ -1,0 +1,39 @@
+.homepage {
+    height: 200vh;
+}
+
+.vpbuilding {
+    background-image: url(../assets/vp_building.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 85vh;
+}
+
+.our_projects > h1 {
+    color: green;
+    font-family: 'Libre Franklin', sans-serif;
+}
+
+.our_projects {
+    display: grid;
+    place-items: center;
+}
+
+.projects {
+    display: flex;
+}
+
+.intro_text {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.intro_text > h1 {
+    color: green;
+    font-family: 'Libre Franklin', sans-serif;
+}
+
+.footer_carousel {
+    display: grid;
+    place-items: center;
+}
