@@ -1,15 +1,22 @@
 import './App.css';
-import HomePage from './components/HomePage';
-import { Routes, Route, Link } from "react-router-dom";
+import MainPage from './components/MainPage';
+import { Routes, Route } from "react-router-dom";
 import Login from './components/Login';
+import SignUp from './components/SignUp';
+import { UserAuthContextProvider } from "./context/UserAuthContext";
+import HomePage from './components/HomePage';
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route exact path='/' element={<HomePage />} />
-        <Route exact path='/login' element={<Login />} /> 
-      </Routes>
+      <UserAuthContextProvider>
+        <Routes>
+          <Route exact path='/' element={<MainPage />} />
+          <Route exact path='/login' element={<Login />} />
+          <Route exact path='/signup' element={<SignUp />} />
+          <Route exact path='/home' element={<HomePage />} />
+        </Routes>
+      </UserAuthContextProvider>
     </div>
   );
 }

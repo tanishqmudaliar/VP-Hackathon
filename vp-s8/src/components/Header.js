@@ -17,7 +17,7 @@ function Header() {
             aria-label="menu"
             sx={{ mr: 2, height: '50px', width: 110 }}
           >
-            <img src={logo} className="logo" alt="logo"/>
+            <img src={logo} className="logo_mainpage" alt="logo"/>
           </Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News

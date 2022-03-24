@@ -3,6 +3,7 @@
     display: flex;
 }
 
-.logo {
-    width: 150px;
+.logo_mainpage {
+    width: 100px;
+    background-size: contain;
 }
