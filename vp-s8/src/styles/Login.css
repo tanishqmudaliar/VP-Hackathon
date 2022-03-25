@@ -2,12 +2,14 @@
     display: grid;
     place-items: center;
     height: 100vh;
+    overflow-x: hidden;
 }
 
 .lgform {
+    background-color: white;
     padding-top: 20px;
-    width: 50vw;
-    min-width: 400px;
+    width: 60vw;
+    min-width: fit-content;
     height: max-content;
     min-height: 450px;
     border-radius: 30px;
@@ -33,4 +35,23 @@
     margin-top: 5px;
     display: flex;
     padding-bottom: 10px;
+}
+
+.lgalert{
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+@media screen and (max-width: 20cm) {
+    .login{
+        overflow-y: hidden;
+        height: 90vh;
+        background: white;
+    }
+    .lgform{
+        padding-top: 0%;
+        width: 100vw;
+        box-shadow: none;
+    }
 }

@@ -1,5 +1,5 @@
 .homepage {
-    height: 200vh;
+    height: fit-content;
 }
 
 .vpbuilding {
@@ -7,6 +7,13 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 85vh;
+}
+
+.vpbuilding2 {
+    background-image: url(../assets/vp_building.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90vh;
 }
 
 .our_projects > h1 {
@@ -36,4 +43,15 @@
 .footer_carousel {
     display: grid;
     place-items: center;
+}
+
+@media screen and (max-width: 20cm) {
+    .vpbuilding{
+        height: 20vh;
+        margin-top: 1.5cm;
+    }
+
+    .projects{
+        display: grid;
+    }
 }

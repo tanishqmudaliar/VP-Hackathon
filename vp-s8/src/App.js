@@ -5,6 +5,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import HomePage from './components/HomePage';
+import ProtectedRoute from "./components/ProtectedRoutes.js";
 
 function App() {
   return (
@@ -14,7 +15,11 @@ function App() {
           <Route exact path='/' element={<MainPage />} />
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/signup' element={<SignUp />} />
-          <Route exact path='/home' element={<HomePage />} />
+          <Route exact path='/home' element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          } />
         </Routes>
       </UserAuthContextProvider>
     </div>

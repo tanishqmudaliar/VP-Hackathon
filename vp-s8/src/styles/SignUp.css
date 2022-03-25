@@ -5,9 +5,10 @@
 }
 
 .spform {
+    background-color: white;
     padding-top: 20px;
     width: 50vw;
-    min-width: 400px;
+    min-width: fit-content;
     height: max-content;
     min-height: 410px;
     border-radius: 30px;
@@ -31,4 +32,17 @@
 .spfooter{
     padding-bottom: 10px;
     display: flex;
+}
+
+@media screen and (max-width: 20cm) {
+    .signup{
+        overflow-y: hidden;
+        background: white;
+        height: 90vh;
+    }
+    .spform{
+        padding-top: 0%;
+        width: 100vw;
+        box-shadow: none;
+    }
 }

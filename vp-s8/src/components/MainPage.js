@@ -7,14 +7,14 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import project1 from '../assets/project1.jpg';
 import project2 from '../assets/project2.jpg';
-import CarouselComponent from './CarouselComponent.js';
+import Carousel from './Carousel.js';
 
 function MainPage() {
   return (
     <div className='homepage'>
         <Header />
         <div className='vpbuilding'>
-
+            
         </div>
         <div className='intro_text'>
             <h1>TECH GLIMPSE</h1>
@@ -26,7 +26,7 @@ function MainPage() {
         <div className='our_projects'>
             <h1>OUR PROJECTS</h1>
             <div className='projects'>
-            <Card sx={{ maxWidth: 375, mx: 1 }}>
+            <Card sx={{ maxWidth: 375, mx: 1, maxHeight: 'fit-content', mb: 1 }}>
             <CardMedia
                 component="img"
                 height="180"
@@ -42,7 +42,7 @@ function MainPage() {
                 </Typography>
             </CardContent>
             </Card>
-            <Card sx={{ maxWidth: 375, mx: 1 }}>
+            <Card sx={{ maxWidth: 375, mx: 1, maxHeight: 'fit-content', mb: 1 }}>
             <CardMedia
                 component="img"
                 height="180"
@@ -61,7 +61,7 @@ function MainPage() {
             </div>
         </div>
         <div className='footer_carousel'>
-            <CarouselComponent/>
+            <Carousel/>
         </div>
     </div>
   )

@@ -1,8 +1,8 @@
 .carousel {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
     width: 95%;
-    height: 500px;
+    height: 550px;
 }
 
 .carouselInner {
@@ -21,14 +21,6 @@
     place-items: center;
     color: white;
     cursor: pointer;
-}
-
-.left:hover {
-    background-color: rgb(0, 0, 0, 0.2);
-}
-
-.right:hover {
-    background-color: rgb(0, 0, 0, 0.2);
 }
 
 .carouselInner .center {

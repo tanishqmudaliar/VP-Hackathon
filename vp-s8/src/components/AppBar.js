@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -23,6 +23,8 @@ import { ListItemIcon, ListItemText } from '@mui/material';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import CollectionsIcon from '@mui/icons-material/Collections';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../config/firebase.js';
 
 const drawerWidth = 240;
 
@@ -58,6 +60,24 @@ export default function PersistentDrawerLeft() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { logOut, user } = useUserAuth();
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getUsers()
+  }, [])
+
+  function getUsers() {
+    const usersCollectionRef = collection(db, 'users')
+    getDocs(usersCollectionRef)
+      .then(response => {
+        const userr = response.docs.map(doc => ({
+          data: doc.data(),
+          id: doc.id,
+        })) 
+        setUsers(userr)
+      })
+      .catch(error => console.log(error.message))
+  }
 
   const handleLogout = async () => {
     try {
@@ -89,6 +109,8 @@ export default function PersistentDrawerLeft() {
   }
 
   return (
+    <div>
+    {users.map(users => (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar open={open} sx={{ backgroundColor: 'white' }}>
@@ -104,7 +126,7 @@ export default function PersistentDrawerLeft() {
                 <img src={logo} className="logo_mainpage" alt="logo"/>
                 </Button>
                 <Box className='appbar-title' sx={{ flexGrow: 1 }}>
-                    <h1>Vidyalankar Polytechnic</h1>
+                    <h1 className='appbar-title-display'>Vidyalankar Polytechnic</h1>
                 </Box>
                 <IconButton onClick={handleMenu}>
                     <AccountCircleIcon sx={{ fontSize: 40 }}/>
@@ -124,8 +146,9 @@ export default function PersistentDrawerLeft() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
                 >
-                <MenuItem onClick={navigateProfile}>Profile</MenuItem>
-                <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+                  <MenuItem>{user.email}</MenuItem>
+                  <MenuItem onClick={navigateProfile}>Profile</MenuItem>
+                  <MenuItem onClick={handleLogout}>Log Out</MenuItem>
                 </Menu>
             </Toolbar>
         </AppBar>
@@ -176,5 +199,7 @@ export default function PersistentDrawerLeft() {
         </List>
       </Drawer>
     </Box>
+    ))}
+    </div>
   );
 }
