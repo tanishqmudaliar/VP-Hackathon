@@ -1,15 +1,15 @@
 import React from 'react';
-import AppBarComponent from './AppBar';
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import project1 from '../assets/project1.jpg';
 import project2 from '../assets/project2.jpg';
 import Carousel from './Carousel.js';
 import '../styles/HomePage.css';
+import Appbar from './AppBar';
 
 function HomePage() {
   return (
     <div>
-        <AppBarComponent />
+        <Appbar />
         <div className='vpbuilding'>
 
         </div>

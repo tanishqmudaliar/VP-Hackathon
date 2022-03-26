@@ -6,11 +6,11 @@ import { Button, TextField, Link, Alert, InputAdornment, Typography } from '@mui
 import LoginIcon from '@mui/icons-material/Login';
 import { useUserAuth } from "../context/UserAuthContext.js";
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection } from 'firebase/firestore';
+import { setDoc, doc } from 'firebase/firestore';
 import { db } from '../config/firebase.js';
 
 function SignUp() {
-  const [name, setName] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [number, setNumber] = useState("");
@@ -22,25 +22,25 @@ function SignUp() {
     e.preventDefault();
     setError("");
     try {
-      await signUp(email, password);
-      navigate("/login");
       if (
-        name === '',
-        email === '',
-        number === '') {
+        displayName === '' | password === '' | email === '' | number === '') {
         return
       }
-      const usersCollRef = collection(db, 'users')
-      addDoc(usersCollRef, {name, email, number})
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error.message)
-        })
-    } catch (err) {
-      setError(err.message);
-    }
+      signUp(email, password)
+        .then(data => {
+          const usersCollRef = doc(db, `users/${data.user.uid}`)
+          setDoc(usersCollRef, {displayName, email, number, createdAt: new Date()})
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error.message)
+            })
+          })
+      } catch (err) {
+        setError(err.message);
+      }
+      navigate("/home");
   };
 
   return (
@@ -50,7 +50,7 @@ function SignUp() {
             <img src={logo} alt="logo" className='logo-login'/>
             <h1>Create an account</h1>
             <div className='spform1'>
-              <TextField required type="text" color='success' id="name" label="Name" variant="outlined" onChange={(e) => setName(e.target.value)} sx={{ width: '90%', my: 2 }}/>
+              <TextField required type="text" color='success' id="name" label="Name" variant="outlined" onChange={(e) => setDisplayName(e.target.value)} sx={{ width: '90%', my: 2 }}/>
               <TextField required type="number" color='success' id="number" label="Number" variant="outlined" onChange={(e) => setNumber(e.target.value)} sx={{ width: '90%', mb: 2 }} InputProps={{
                 startAdornment: 
                 <InputAdornment position="start">

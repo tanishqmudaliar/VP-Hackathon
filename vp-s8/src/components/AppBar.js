@@ -82,12 +82,12 @@ export default function Appbar() {
   const handleLogout = async () => {
     try {
       await logOut();
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.log(error.message);
     }
   };
-login
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
