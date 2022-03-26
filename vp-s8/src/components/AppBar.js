@@ -54,7 +54,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft() {
+export default function Appbar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -82,12 +82,12 @@ export default function PersistentDrawerLeft() {
   const handleLogout = async () => {
     try {
       await logOut();
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.log(error.message);
     }
   };
-
+login
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -146,7 +146,6 @@ export default function PersistentDrawerLeft() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
                 >
-                  <MenuItem>{user.email}</MenuItem>
                   <MenuItem onClick={navigateProfile}>Profile</MenuItem>
                   <MenuItem onClick={handleLogout}>Log Out</MenuItem>
                 </Menu>
