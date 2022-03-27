@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
 import '../styles/SignUp.css';
 import logo from '../assets/vp-logo.png';
-import { Button, TextField, Link, Alert, InputAdornment, Typography } from '@mui/material';
-import LoginIcon from '@mui/icons-material/Login';
 import { useUserAuth } from "../context/UserAuthContext.js";
 import { useNavigate } from "react-router-dom";
 import { setDoc, doc } from 'firebase/firestore';
 import { db } from '../config/firebase.js';
+import { Form } from 'react-bootstrap';
+import { Button, TextField, Link, Alert, InputAdornment, Typography } from '@mui/material';
+import LoginIcon from '@mui/icons-material/Login';
 
 function SignUp() {
   const [displayName, setDisplayName] = useState("");
@@ -30,9 +30,9 @@ function SignUp() {
         .then(data => {
           const usersCollRef = doc(db, `users/${data.user.uid}`)
           setDoc(usersCollRef, {displayName, email, number, createdAt: new Date()})
-            .then(response => {
-              console.log(response)
-            })
+            .then(
+              console.log('account creation successfull')
+            )
             .catch(error => {
               console.log(error.message)
             })

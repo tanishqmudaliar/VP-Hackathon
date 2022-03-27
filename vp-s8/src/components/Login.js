@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
 import '../styles/Login.css';
 import logo from '../assets/vp-logo.png';
-import { Button, TextField, Link, Alert, IconButton } from '@mui/material';
+import { useUserAuth } from "../context/UserAuthContext.js";
+import { useNavigate } from "react-router-dom";
+import { Form } from 'react-bootstrap';
+import { Button, TextField, Link, Alert, IconButton, Collapse } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import LockResetIcon from '@mui/icons-material/LockReset';
-import { useUserAuth } from "../context/UserAuthContext.js";
-import Collapse from '@mui/material/Collapse';
-import { useNavigate } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 
 function Login() {
