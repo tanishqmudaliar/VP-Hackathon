@@ -4,6 +4,7 @@ import { useUserAuth } from "../context/UserAuthContext";
 import {
   Avatar,
   IconButton,
+  ListItem,
   Menu,
   MenuItem,
 } from '@mui/material';
@@ -66,9 +67,9 @@ function AccountPopover() {
               'aria-labelledby': 'basic-button',
               }}
           >
-            <MenuItem>{displayName}</MenuItem>
-            <MenuItem onClick={navigateProfile}>My account</MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <ListItem sx={{ color: 'black' }}>{displayName}</ListItem>
+            <MenuItem sx={{  '&:hover' : { color: 'green' } }} onClick={navigateProfile}>My account</MenuItem>
+            <MenuItem sx={{ '&:hover' : { color: 'green' } }} onClick={handleLogout}>Logout</MenuItem>
           </Menu>
       </div>
   )

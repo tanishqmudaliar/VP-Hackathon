@@ -25,6 +25,7 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db, auth, storage } from '../config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage';
+import Footer from './Footer';
 
 const Input = styled('input')({
     display: 'none',
@@ -32,16 +33,16 @@ const Input = styled('input')({
 
 function Profile() {
     const { user } = useUserAuth();
-    const [userID, setUserID] = useState('');
-    const [displayName, setDisplayName] = useState('');
-    const [email, setEmail] = useState('');
-    const [number, setNumber] = useState('');
-    const [dob, setDob] = useState('');
-    const [rollno, setRollno] = useState('');
-    const [department, setDepartment] = useState('');
-    const [bio, setBio] = useState('');
+    const [userID, setUserID] = useState('null');
+    const [displayName, setDisplayName] = useState('null');
+    const [email, setEmail] = useState('null');
+    const [number, setNumber] = useState('null');
+    const [dob, setDob] = useState('null');
+    const [rollno, setRollno] = useState('null');
+    const [department, setDepartment] = useState('null');
+    const [bio, setBio] = useState('null');
     const [open, setOpen] = React.useState(false);
-    const [profile, setProfile] = useState('');
+    const [profile, setProfile] = useState('null');
     const [progress, setProgress] = useState(0);
 
     const formHandler = (e) => {
@@ -227,6 +228,7 @@ function Profile() {
                     </Snackbar>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

@@ -5,6 +5,11 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import HomePage from './components/HomePage';
 import Profile from './components/Profile';
+import PageNotFound from './components/PageNotFound';
+import Events from './components/Events';
+import Images from './components/Images';
+import Videos from './components/Videos';
+import ContactUs from './components/ContactUs';
 
 function App() {
   return (
@@ -15,10 +20,12 @@ function App() {
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/signup' element={<SignUp />} />
           <Route exact path='/home' element={<HomePage />} />
-          <Route exact path='/profile' element={<Profile />}/>
-          <Route exact path='/events'/>
-          <Route exact path='/gallery' />
-          <Route exact path='/404' />
+          <Route exact path='/profile' element={<Profile />} />
+          <Route exact path='/events' element={<Events />} />
+          <Route exact path='/images' element={<Images />} />
+          <Route exact path='/videos' element={<Videos />} />
+          <Route exact path='/contactus' element={<ContactUs />} />
+          <Route exact path='/404' element={<PageNotFound />}/>
           <Route path="*" element={<Navigate to="/404"/>} />
         </Routes>
       </UserAuthContextProvider>

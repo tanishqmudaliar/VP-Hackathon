@@ -1,0 +1,30 @@
+.events {
+    display: flex;
+    padding-top: 2.2cm;
+    padding-bottom: 0.5cm;
+    justify-content: space-evenly;
+}
+
+.ep1 {
+    border-radius: 5px;
+    background-color: lightgray;
+    width: 30vw;
+}
+
+.ep2 {
+    border-radius: 5px;
+    background-color: lightgray;
+    width: 60vw;
+}
+
+.event_title {
+    font-family: 'Ramaraja', serif;
+}
+
+.event_description {
+    font-family: 'Libre Franklin', sans-serif;
+}
+
+.event_footer {
+    font-family: 'Libre Franklin', sans-serif;
+}

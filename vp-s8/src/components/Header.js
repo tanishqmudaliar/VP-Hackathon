@@ -33,6 +33,8 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import HomeRounded from '@mui/icons-material/HomeRounded';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import ImageIcon from '@mui/icons-material/Image';
 import AccountPopover from './AccountPopover';
 
 const drawerWidth = 240;
@@ -89,12 +91,17 @@ export default function Header() {
   const { user } = useUserAuth();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openCollapse, setOpenCollapse] = React.useState(false);
+  const [openGallery, setOpenGallery] = React.useState(false);
+  const [openEvents, setOpenEvents] = React.useState(false);
   const navigate = useNavigate();
 
-  function handleOpenSettings(){
-     setOpenCollapse(!openCollapse);
+  function handleOpenEvents(){
+     setOpenEvents(!openEvents);
   }
+
+  function handleOpenGallery(){
+    setOpenGallery(!openGallery);
+ }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -116,8 +123,15 @@ export default function Header() {
     navigate('/home');
   }
 
-  const navigateGallery = () => {
-    navigate('/gallery');
+  const navigateEvents = () => {
+    navigate('/events');
+  }
+
+  const navigateImage = () => {
+    navigate('/images');
+  }
+  const navigateVideos = () => {
+    navigate('/videos');
   }
 
   return (
@@ -145,12 +159,12 @@ export default function Header() {
             <StyledBreadcrumb
               label="Events"
               icon={<EmojiEventsIcon fontSize="small"/>}
-              onClick={handleMenu}
+              onClick={navigateEvents}
             />
             <StyledBreadcrumb
               label="Gallery"
               icon={<CollectionsIcon fontSize="small"/>}
-              onClick={navigateGallery}
+              onClick={handleMenu}
             />
           </Breadcrumbs>
           {user ? (
@@ -178,11 +192,8 @@ export default function Header() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
         >
-          <MenuItem>2022</MenuItem>
-          <MenuItem>2021</MenuItem>
-          <MenuItem>2020</MenuItem>
-          <MenuItem>2019</MenuItem>
-          <MenuItem>2018</MenuItem>
+          <MenuItem onClick={navigateImage}>Images</MenuItem>
+          <MenuItem onClick={navigateVideos}>Videos</MenuItem>
       </Menu>
       <Drawer
         sx={{
@@ -204,7 +215,7 @@ export default function Header() {
         </DrawerHeader>
         <Divider />
         <List sx={{ display: 'grid', placeItems: 'center' }}>
-        <ListItem button onClick={handleOpenSettings} sx={{ width: '90%', borderRadius: 3, '&:hover' : { background: '#ebebeb' } }}>
+        <ListItem button onClick={handleOpenEvents} sx={{ width: '90%', borderRadius: 3, mb: 1, '&:hover' : { background: '#ebebeb' } }}>
           <ListItemIcon sx={{ display: 'grid', placeItems: 'center' }}>
             <EmojiEventsIcon />
           </ListItemIcon>
@@ -212,52 +223,75 @@ export default function Header() {
             Events
           </ListItemText>
           <ListItemIcon sx={{ display: 'grid', placeItems: 'center' }}>
-            {openCollapse ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            {openEvents ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </ListItemIcon>
         </ListItem>
-        <Collapse in={openCollapse} timeout="auto" unmountOnExit>
+        <Collapse in={openEvents} timeout={500} unmountOnExit>
           <List component="div" sx={{ display: 'grid', placeItems: 'center', width: 200 }}>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
+            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
               <ListItemText>
                 2022
               </ListItemText>
             </ListItem>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
+            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
               <ListItemText>
                 2021
               </ListItemText>
             </ListItem>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
+            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
               <ListItemText>
                 2020
               </ListItemText>
             </ListItem>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
+            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
               <ListItemText>
                 2019
               </ListItemText>
             </ListItem>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
+            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
               <ListItemText>
                 2018
               </ListItemText>
             </ListItem>
           </List>
         </Collapse>
-          <ListItem button sx={{ width: '90%', borderRadius: 3, '&:hover' : { background: '#ebebeb' } }}>
+        <ListItem button onClick={handleOpenGallery} sx={{ width: '90%', borderRadius: 3, mb: 1, '&:hover' : { background: '#ebebeb' } }}>
+          <ListItemIcon sx={{ display: 'grid', placeItems: 'center' }}>
+            <CollectionsIcon />
+          </ListItemIcon>
+          <ListItemText sx={{ display: 'grid', placeItems: 'center' }}>
+            Gallery
+          </ListItemText>
+          <ListItemIcon sx={{ display: 'grid', placeItems: 'center' }}>
+            {openGallery ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </ListItemIcon>
+        </ListItem>
+        <Collapse in={openGallery} timeout={500} unmountOnExit>
+          <List component="div" sx={{ display: 'grid', placeItems: 'center', width: 200 }}>
+            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
+              <ListItemIcon>
+                <ImageIcon />
+              </ListItemIcon>
+              <ListItemText sx={{ ml: -6.5 }} >
+                Images
+              </ListItemText>
+            </ListItem>
+            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
+              <ListItemIcon>
+                <VideoLibraryIcon />
+              </ListItemIcon>
+              <ListItemText sx={{ ml: -6.5 }} >
+                Videos
+              </ListItemText>
+            </ListItem>
+          </List>
+        </Collapse>
+          <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, '&:hover' : { background: '#ebebeb' } }}>
             <ListItemIcon sx={{ display: 'grid', placeItems: 'center' }}>
               <CloudDownloadIcon />
             </ListItemIcon>
             <ListItemText sx={{ ml: 1.2 }}>
               Certificates
-            </ListItemText>
-          </ListItem>
-          <ListItem button sx={{ width: '90%', borderRadius: 3, '&:hover' : { background: '#ebebeb' } }}>
-            <ListItemIcon sx={{ display: 'grid', placeItems: 'center' }}>
-              <CollectionsIcon />
-            </ListItemIcon>
-            <ListItemText sx={{ ml: 1.2 }}>
-              Gallery
             </ListItemText>
           </ListItem>
         </List>

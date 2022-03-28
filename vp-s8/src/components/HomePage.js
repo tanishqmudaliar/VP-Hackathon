@@ -5,6 +5,7 @@ import project1 from '../assets/project1.jpg';
 import project2 from '../assets/project2.jpg';
 import Carousel from './Carousel.js';
 import Header from './Header.js';
+import Footer from './Footer';
 
 function HomePage() {
     return (
@@ -12,14 +13,14 @@ function HomePage() {
             <Header />
             <div className='vpbuilding' />
             <div className='intro_text'>
-                <h1>TECH GLIMPSE</h1>
+                <h1>Tech Glimpse</h1>
                 Vidyalankar is a well-known college for its diploma courses. It offers courses such as Information Technology,
                 Computer Science and Electronics and Telecommunication. It is situated at Wadala. Several technical events are conducted by Vidyalankar.
                 Their mission is to pull out the true potential from students through these events, students can get knowledge from some brilliant personalities.
                 They also offer certificates for participation and prizes for winners. It also opens a variety of opportunities for students as  many companies are a part of this events.
             </div>
             <div className='our_projects'>
-                <h1>OUR PROJECTS</h1>
+                <h1>Our Projects</h1>
                 <div className='projects'>
                 <Card sx={{ maxWidth: 375, mx: 1 }}>
                 <CardMedia
@@ -58,6 +59,7 @@ function HomePage() {
             <div className='footer_carousel'>
             <Carousel/>
             </div>
+            <Footer />
         </div>
     )
 }
