@@ -9,6 +9,7 @@
     border-radius: 5px;
     background-color: lightgray;
     width: 30vw;
+    height: fit-content;
 }
 
 .ep2 {

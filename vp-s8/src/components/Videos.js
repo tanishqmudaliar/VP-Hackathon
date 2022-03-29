@@ -17,6 +17,7 @@ function Videos() {
                 url="https://youtu.be/uy9F3Dmeic8"
             />
             <ReactPlayer
+                controls
                 width="45vw"
                 height="50vh"
                 url="https://youtu.be/Me0Pc8xD4wQ"
@@ -31,6 +32,7 @@ function Videos() {
                 url="https://youtu.be/xfXwAWUrDcg"
             />
             <ReactPlayer
+                controls
                 width="45vw"
                 height="50vh"
                 url="https://youtu.be/DVBVrN6A19E"
@@ -45,6 +47,7 @@ function Videos() {
                 url="https://youtu.be/mph3EV0_Si0"
             />
             <ReactPlayer
+                controls
                 width="45vw"
                 height="50vh"
                 url="https://youtu.be/_Ne0Q1gSwHs"

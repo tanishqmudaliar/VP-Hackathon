@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/SignUp.css';
 import logo from '../assets/vp-logo.png';
 import { useUserAuth } from "../context/UserAuthContext.js";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { setDoc, doc } from 'firebase/firestore';
 import { db } from '../config/firebase.js';
 import { Form } from 'react-bootstrap';
-import { Button, TextField, Link, Alert, InputAdornment, Typography } from '@mui/material';
+import { Button, TextField, Link, Alert, InputAdornment, Typography, FormLabel, FormControlLabel, Radio, RadioGroup, FormControl } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 
 function SignUp() {
@@ -14,22 +14,29 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [number, setNumber] = useState("");
+  const [role, setRole] = useState("");
   const [error, setError] = useState("");
   const { signUp } = useUserAuth();
   let navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const target = e.target
+    const value = target.value
+    setRole(value)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
       if (
-        displayName === '' | password === '' | email === '' | number === '') {
-        return
+        displayName === '' | password === '' | email === '' | number === '' | role === '') {
+        return setError("Please fill every field!")
       }
       signUp(email, password)
         .then(data => {
           const usersCollRef = doc(db, `users/${data.user.uid}`)
-          setDoc(usersCollRef, {displayName, email, number, createdAt: new Date()})
+          setDoc(usersCollRef, {displayName, email, number, role, createdAt: new Date()})
             .then(
               console.log('account creation successfull')
             )
@@ -59,7 +66,13 @@ function SignUp() {
                   </Typography>
                 </InputAdornment>}}/>
               <TextField required type="email" color='success' id="email" label="Email" variant="outlined" onChange={(e) => setEmail(e.target.value)} sx={{ width: '90%', mb: 2 }} />
-              <TextField required type="password" color='success' id="password" label="Password" variant="outlined" onChange={(e) => setPassword(e.target.value)} sx={{ width: '90%', mb: 2 }}/>
+              <TextField required type="password" color='success' id="password" label="Password" variant="outlined" onChange={(e) => setPassword(e.target.value)} sx={{ width: '90%' }}/>
+              <RadioGroup
+                row
+              >
+                <FormControlLabel onChange={handleChange} value="admin" control={<Radio color='success'/>} label="Admin" />
+                <FormControlLabel onChange={handleChange} value="user" control={<Radio color='success'/>} label="User" />
+              </RadioGroup>
               <Button type='submit' color='success' variant='contained' sx={{ width: '90%', mb: 1 }} startIcon={<LoginIcon />}>Submit</Button>
               <div className='spfooter'>
                 Already have an account?<Link href="/login" underline="hover" sx={{ color: 'green', ml: 1 }}>Login</Link>
