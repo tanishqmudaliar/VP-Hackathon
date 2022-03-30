@@ -1,4 +1,5 @@
 .events {
+    min-height: 53vh;
     display: flex;
     padding-top: 2.2cm;
     padding-bottom: 0.5cm;
@@ -10,22 +11,53 @@
     background-color: lightgray;
     width: 30vw;
     height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .ep2 {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 5px;
     background-color: lightgray;
     width: 60vw;
+    height: min-content;
 }
 
 .event_title {
     font-family: 'Ramaraja', serif;
 }
 
-.event_description {
+.eventDesc > h1 {
     font-family: 'Libre Franklin', sans-serif;
+    font-size: 15px;
+}
+
+.eventDesc {
+    overflow: auto;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    height: 100px;
+    width: 560px;
+}
+
+.etitle { 
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+
+.efooter { 
+    display: flex;
 }
 
 .event_footer {
     font-family: 'Libre Franklin', sans-serif;
+}
+
+.sendemail {
+    display: none;
+}
+
+.eventthumbnail {
+    height: 40px;
+    margin-top: 0.6%;
 }

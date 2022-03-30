@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/SignUp.css';
 import logo from '../assets/vp-logo.png';
 import { useUserAuth } from "../context/UserAuthContext.js";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { setDoc, doc } from 'firebase/firestore';
 import { db } from '../config/firebase.js';
 import { Form } from 'react-bootstrap';
-import { Button, TextField, Link, Alert, InputAdornment, Typography, FormLabel, FormControlLabel, Radio, RadioGroup, FormControl } from '@mui/material';
+import { Button, TextField, Link, Alert, InputAdornment, Typography, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 
 function SignUp() {

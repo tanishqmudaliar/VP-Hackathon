@@ -19,6 +19,7 @@ function AccountPopover() {
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
   const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState('');
   const [profile, setProfile] = useState('');
 
   useEffect(() => {
@@ -27,6 +28,7 @@ function AccountPopover() {
       const profileRef = ref(storage, `profile/${currentuser.uid}.png`)
       onSnapshot(docRef, (doc) => {
         setDisplayName(doc.data().displayName)
+        setEmail(doc.data().email)
       })
       getDownloadURL(profileRef)
         .then((url) => {
@@ -44,7 +46,7 @@ function AccountPopover() {
     }
   };
   const navigateProfile = () => {
-    navigate('/profile')
+    navigate('/profile/'+email)
   };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

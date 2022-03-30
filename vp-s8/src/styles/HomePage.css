@@ -3,10 +3,11 @@
 }
 
 .vpbuilding {
+    margin-top: 1.5cm;
     background-image: url(../assets/vp_building.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 85vh;
+    height: 92vh;
 }
 
 .vpbuilding2 {

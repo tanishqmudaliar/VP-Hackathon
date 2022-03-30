@@ -128,10 +128,10 @@ export default function Header() {
   }
 
   const navigateImage = () => {
-    navigate('/images');
+    navigate('/gallery/images');
   }
   const navigateVideos = () => {
-    navigate('/videos');
+    navigate('/gallery/videos');
   }
 
   return (
@@ -267,7 +267,7 @@ export default function Header() {
           </ListItemIcon>
         </ListItem>
         <Collapse in={openGallery} timeout={500} unmountOnExit>
-          <List component="div" sx={{ display: 'grid', placeItems: 'center', width: 200 }}>
+          <List onClick={navigateImage} component="div" sx={{ display: 'grid', placeItems: 'center', width: 200 }}>
             <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
               <ListItemIcon>
                 <ImageIcon />

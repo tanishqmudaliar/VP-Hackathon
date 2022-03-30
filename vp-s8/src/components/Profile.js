@@ -52,12 +52,11 @@ function Profile() {
     };
   
     const uploadFiles = (file) => {
-      //
-      if (!file) return;
-      const sotrageRef = ref(storage, `profile/${userID}.png`);
-      const uploadTask = uploadBytesResumable(sotrageRef, file)
+        if (!file) return;
+        const storageRef = ref(storage, `profile/${userID}.png`);
+        const uploadTask = uploadBytesResumable(storageRef, file)
 
-      uploadTask.on(
+        uploadTask.on(
         "state_changed",
         (snapshot) => {
           const prog = Math.round(
@@ -66,7 +65,7 @@ function Profile() {
           setProgress(prog);
         },
         (error) => console.log(error),
-      )};
+    )};
 
     useEffect(() => {
       onAuthStateChanged(auth, (currentuser) => {

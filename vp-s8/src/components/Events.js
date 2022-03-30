@@ -9,18 +9,40 @@ import {
   Avatar,
   Box,
   Button,
+  Link,
 } from '@mui/material';
+import emailjs from 'emailjs-com';
 import { db, auth, storage } from '../config/firebase';
 import { onSnapshot, collection, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { useUserAuth } from '../context/UserAuthContext';
 
 function Events() {
+  const { user } = useUserAuth();
   const [events, setEvents] = useState([{ name: "null", id: "null" }]);
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
   const [profile, setProfile] = useState('null');
+  const navigate = useNavigate();
+
+  function sendEmail(e) {
+    e.preventDefault();
+
+    emailjs.sendForm('vidyalankar_vp9', 'template_vp9', e.target, 'lRRWXKzeM_Bk6-g3j')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+      e.target.reset()
+}
+
+  const handleLogin = () => {
+    navigate('/login')
+  }
 
   useEffect(() => {
     onSnapshot(collection(db, "events"), (snapshot) =>
@@ -74,12 +96,12 @@ function Events() {
               Events Completed: 5
               </CardContent>
             </Card>
-            {role === 'admin' && <Button variant='contained' color="success" sx={{ m: 1, mt: 0, width: '96%' }} >Create/Edit Events</Button>}
+            {role === 'admin' && <Button href="/events/create-edit-events" variant='contained' color="success" sx={{ m: 1, mt: 0, width: '96%' }}>Create/Edit Events</Button>}
           </div>
           <div className='ep2'>
           {events.map((event) => (
             <div key={event.id}>
-            <Card sx={{ m: 1, display: 'flex', height: 'fit-content' }}>
+            <Card sx={{ m: 1, display: 'flex', height: '200px' }}>
             <CardMedia
               component="img"
               sx={{ width: '300px' }}
@@ -87,16 +109,30 @@ function Events() {
               alt="Live from space album cover"
             />
             <CardContent sx={{ flex: '1 0 auto', textAlign: 'left', mt: -1 }}>
-              <CardContent className="event_title" sx={{ fontSize: '40px', height: '40px', p: 0 }} >
+            <div className='etitle'>
+              <CardContent className="event_title" sx={{ fontSize: '40px', height: '10px', p: 0 }} >
                 {event.eventTitle}
               </CardContent>
-              <CardContent className="event_description" sx={{ fontSize: '20px', height: 'fit-content', p: 0, pt: 2, width: '570px' }}>
-                {event.eventDesc}
-              </CardContent>
-              <CardContent className='event_footer' sx={{ p: 0, pt: 1 , height: 'fir-content', fontStyle: 'italic', width: '570px' }}>
-                From {event.eventTimeStart} to {event.eventTimeEnd}
-              </CardContent>
-            {role === 'admin' && <CardContent sx={{ p: 0, height: 'fit-content', fontStyle: 'italic', width: '570px', fontSize: '12px' }}>Event ID: {event.id}</CardContent>}
+              {role === 'user' && 
+                <form onSubmit={sendEmail}>
+                <input readOnly className='sendemail' value={displayName} type="text" name="displayName"/>
+                <input readOnly className='sendemail' value={email} type="text" name="user_email"/>
+                <textarea readOnly className='sendemail' value={role} text="text" name="message"></textarea>
+                {user && <Button type='submit' color="success" variant='contained' sx={{ mt: 1 }}>Register</Button>}
+                {!user && <Button onClick={handleLogin} color="success" variant='contained' sx={{ mt: 1 }}>Register</Button>}
+                </form>
+              }
+              </div>
+              <div className='eventDesc'>
+              <h1>{event.eventDesc}</h1>
+              </div>
+              <div className='efooter'>
+                <CardContent className='event_footer' sx={{ p: 0, pt: 1 , fontStyle: 'italic', width: 'fit-content' }}>
+                  From {event.eventTimeStart} to {event.eventTimeEnd}
+                </CardContent>
+                <Link href={"/events/"+event.id} underline='hover' sx={{ width: 'fit-content', ml: 1, mt: 0.65, color: 'green', cursor: 'pointer' }}>More Details</Link>
+              </div>
+              {role === 'admin'  && <CardContent sx={{ p: 0, height: 'fit-content', fontStyle: 'italic', width: '570px', fontSize: '12px' }}>Event ID: {event.id}</CardContent>}
             </CardContent>
             </Card>
             </div>
@@ -107,5 +143,4 @@ function Events() {
     </div>
   )
 }
-
-export default Events
+export default Events;
