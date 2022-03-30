@@ -1,0 +1,25 @@
+.contactus {
+    padding-top: 2.2cm;
+    padding-bottom: 0.5cm;
+    display: grid;
+    place-items: center;
+    min-height: 53.86vh;
+}
+
+.cuform {
+    display: grid;
+    background-color: white;
+    width: 50vw;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.cuform > h1 {
+    font-family: 'Playfair Display', serif;
+    margin: 0%;
+    margin-top: 10px;
+}
+
+.sendemail {
+    display: none;
+}

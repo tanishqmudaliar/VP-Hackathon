@@ -27,6 +27,7 @@ function CreateEditEvents() {
     const [eventID, setEventID] = useState('');
     const [eventTitle, setEventTitle] = useState('');
     const [eventDesc, setEventDesc] = useState('');
+    const [eventBrief, setEventBrief] = useState('');
     const [eventTimeStart, setEventTimeStart] = useState('');
     const [eventTimeEnd, setEventTimeEnd] = useState('');
     const [eventThumbnailURL, setEventThumbnailURL] = useState('');
@@ -34,7 +35,7 @@ function CreateEditEvents() {
 
     const formHandler = (e) => {
         e.preventDefault();
-        if ( eventID === '' ) return setError("It takes some time to sync with firebase please wait for a few seconds and alos check if you have filled each and every field");
+        if ( eventID === '' ) return setError("It takes some time to upload the image and sync with firebase so please wait for a few seconds before trying again & also check whether you have filled the form completely");
         const file = e.target[0].files[0];
         uploadFiles(file);
       };
@@ -65,12 +66,12 @@ function CreateEditEvents() {
         })
         try {
             if (
-                eventID === '' | eventTitle === '' | eventDesc === '' | eventTimeStart === '' | eventTimeEnd === '' | eventThumbnailURL === '' ) {
-                return setError("It takes some time to upload the image and sync with firebase so please wait for a few seconds before tring again & also check whether you have filled the form completely")
+                eventID === '' | eventTitle === '' | eventBrief === '' | eventDesc === '' | eventTimeStart === '' | eventTimeEnd === '' | eventThumbnailURL === '' ) {
+                return setError("It takes some time to upload the image and sync with firebase so please wait for a few seconds before trying again & also check whether you have filled the form completely")
             }
             const eventCollRef = doc(db, `events/${eventID}`)
             ref(storage, `events/${eventID}.png`)
-            setDoc(eventCollRef, {eventTitle, eventDesc, eventTimeStart, eventTimeEnd, eventThumbnailURL})
+            setDoc(eventCollRef, {eventTitle, eventDesc, eventBrief, eventTimeStart, eventTimeEnd, eventThumbnailURL})
             setSuccess("Event successfully created/edited")
           } catch (err) {
             setError(err.message)
@@ -87,6 +88,7 @@ function CreateEditEvents() {
                     <Form onSubmit={handleSubmit} className='cform'>
                         <TextField onChange={(e) => setEventID(e.target.value)} required color='success' label="Event ID" variant='outlined' sx={{ mb: 1 }}/>
                         <TextField onChange={(e) => setEventTitle(e.target.value)} required color='success' label="Event Title" variant='outlined' sx={{ mb: 1 }}/>
+                        <TextField onChange={(e) => setEventBrief(e.target.value)} required color='success' label="Event Brief" variant='outlined' sx={{ mb: 1 }} multiline/>
                         <TextField onChange={(e) => setEventDesc(e.target.value)} required color='success' label="Event Description" variant='outlined' sx={{ mb: 1 }} multiline/>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
                             <TextField

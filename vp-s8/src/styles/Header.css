@@ -12,3 +12,12 @@
     display: flex;
     width: max-content;
 }
+
+.topcorner {
+    display: flex;
+}
+
+.alertitle {
+    padding-left: 5px;
+    font-size: 16px;
+}

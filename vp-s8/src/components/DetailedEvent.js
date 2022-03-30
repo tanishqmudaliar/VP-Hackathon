@@ -4,29 +4,21 @@ import Footer from './Footer';
 import Header from './Header';
 import { 
     Card,
-    CardMedia,
     CardContent,
     Avatar,
     Box,
-    Button,
-    Link,
 } from '@mui/material';
 import { db, auth, storage } from '../config/firebase';
 import { onSnapshot, collection, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { useUserAuth } from '../context/UserAuthContext';
-import Events from './Events';
 
 function DetailedEvent() {
-    const { user } = useUserAuth();
     const [events, setEvents] = useState([{ name: "null", id: "null" }]);
     const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('');
     const [profile, setProfile] = useState('null');
-    const [eventID , setEventID] = useState("0001");
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentuser) => {
@@ -72,9 +64,9 @@ function DetailedEvent() {
                 </div>
                 <div className='de2'>
                     {events.map(event => (
-                        <div key={event.id}>
-                            {event.id}
-                        </div>
+                        <li key={event.id}>
+                            {event.eventTitle}
+                        </li>
                     ))}
                 </div>
             </div>

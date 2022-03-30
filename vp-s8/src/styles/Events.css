@@ -35,17 +35,19 @@
     overflow: auto;
     overflow-x: hidden;
     text-overflow: ellipsis;
-    height: 100px;
+    height: 110px;
     width: 560px;
 }
 
-.etitle { 
+.etitle {
+    height: 40px;
     display: flex;
     justify-content: space-between;
     padding-bottom: 5px;
 }
 
-.efooter { 
+.efooter {
+    height: 25px; 
     display: flex;
 }
 
@@ -60,4 +62,9 @@
 .eventthumbnail {
     height: 40px;
     margin-top: 0.6%;
+}
+
+.helpertext {
+    font-size: 15px;
+    margin-top: 10px
 }

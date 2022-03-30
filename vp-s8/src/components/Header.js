@@ -21,13 +21,12 @@ import {
   MenuItem,
   emphasize,
   Chip,
-  Collapse
+  Collapse,
 } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import HomeRounded from '@mui/icons-material/HomeRounded';
@@ -36,6 +35,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ImageIcon from '@mui/icons-material/Image';
 import AccountPopover from './AccountPopover';
+import Alert from './Alert';
 
 const drawerWidth = 240;
 
@@ -167,8 +167,11 @@ export default function Header() {
               onClick={handleMenu}
             />
           </Breadcrumbs>
+          <Alert />
           {user ? (
-            <AccountPopover />
+            <div className='topcorner'>
+              <AccountPopover />
+            </div>
           ) : (
             <div className='login_signup'>
               <Button variant="contained" color="success" href="/login" sx={{ minWidth: 80 }}>Login</Button>
@@ -267,8 +270,8 @@ export default function Header() {
           </ListItemIcon>
         </ListItem>
         <Collapse in={openGallery} timeout={500} unmountOnExit>
-          <List onClick={navigateImage} component="div" sx={{ display: 'grid', placeItems: 'center', width: 200 }}>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
+          <List component="div" sx={{ display: 'grid', placeItems: 'center', width: 200 }}>
+            <ListItem onClick={navigateImage} button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
               <ListItemIcon>
                 <ImageIcon />
               </ListItemIcon>
@@ -276,7 +279,7 @@ export default function Header() {
                 Images
               </ListItemText>
             </ListItem>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
+            <ListItem onClick={navigateVideos} button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
               <ListItemIcon>
                 <VideoLibraryIcon />
               </ListItemIcon>
@@ -286,14 +289,6 @@ export default function Header() {
             </ListItem>
           </List>
         </Collapse>
-          <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, '&:hover' : { background: '#ebebeb' } }}>
-            <ListItemIcon sx={{ display: 'grid', placeItems: 'center' }}>
-              <CloudDownloadIcon />
-            </ListItemIcon>
-            <ListItemText sx={{ ml: 1.2 }}>
-              Certificates
-            </ListItemText>
-          </ListItem>
         </List>
       </Drawer>
     </Box>

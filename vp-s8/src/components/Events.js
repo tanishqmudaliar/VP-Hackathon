@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Events.css';
+import '../styles/DetailedEvent.css';
 import Header from './Header';
 import Footer from './Footer';
 import { 
@@ -26,7 +27,26 @@ function Events() {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
   const [profile, setProfile] = useState('null');
+  const [values, setValues] = useState({
+    password: '',
+    showPassword: false,
+  });
   const navigate = useNavigate();
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   function sendEmail(e) {
     e.preventDefault();
@@ -87,13 +107,13 @@ function Events() {
             </Card>
             <Card sx={{ m: 1, display: 'flex', mt: 0 }}>
               <CardContent sx={{ height: 'min-content' }}>
-              Events Participated: 5
+              Events Participated: 3
               </CardContent>
               <CardContent sx={{ height: 'min-content' }}>
-              Upcomming Events: 5
+              Upcomming Events: 4
               </CardContent>
               <CardContent sx={{ height: 'min-content' }}>
-              Events Completed: 5
+              Events Completed: 0
               </CardContent>
             </Card>
             {role === 'admin' && <Button href="/events/create-edit-events" variant='contained' color="success" sx={{ m: 1, mt: 0, width: '96%' }}>Create/Edit Events</Button>}
@@ -101,7 +121,7 @@ function Events() {
           <div className='ep2'>
           {events.map((event) => (
             <div key={event.id}>
-            <Card sx={{ m: 1, display: 'flex', height: '200px' }}>
+            <Card sx={{ m: 1, display: 'flex', height: '210px' }}>
             <CardMedia
               component="img"
               sx={{ width: '300px' }}
@@ -110,29 +130,29 @@ function Events() {
             />
             <CardContent sx={{ flex: '1 0 auto', textAlign: 'left', mt: -1 }}>
             <div className='etitle'>
-              <CardContent className="event_title" sx={{ fontSize: '40px', height: '10px', p: 0 }} >
-                {event.eventTitle}
+              <CardContent className="event_title" sx={{ fontSize: '40px', height: '40px', p: 0 }} >
+                <Link href={"/events/"+event.id} underline='hover' sx={{ height: '40px', width: 'fit-content', color: 'black', cursor: 'pointer', display: 'flex' }}>{event.eventTitle}</Link> 
               </CardContent>
               {role === 'user' && 
                 <form onSubmit={sendEmail}>
                 <input readOnly className='sendemail' value={displayName} type="text" name="displayName"/>
                 <input readOnly className='sendemail' value={email} type="text" name="user_email"/>
-                <textarea readOnly className='sendemail' value={role} text="text" name="message"></textarea>
-                {user && <Button type='submit' color="success" variant='contained' sx={{ mt: 1 }}>Register</Button>}
-                {!user && <Button onClick={handleLogin} color="success" variant='contained' sx={{ mt: 1 }}>Register</Button>}
+                <textarea readOnly className='sendemail' value={displayName} text="text" name="message"></textarea>
+                {user && <Button type='submit' color="success" variant='contained'>Register</Button>}
                 </form>
               }
+              {!user && <Button onClick={handleLogin} color="success" variant='contained' >Register</Button>}
               </div>
               <div className='eventDesc'>
-              <h1>{event.eventDesc}</h1>
+              <h1 onChange={handleChange('password')}>{values.showPassword ? event.eventDesc : event.eventBrief }</h1>
               </div>
               <div className='efooter'>
                 <CardContent className='event_footer' sx={{ p: 0, pt: 1 , fontStyle: 'italic', width: 'fit-content' }}>
                   From {event.eventTimeStart} to {event.eventTimeEnd}
+                  <Link underline='none' onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} sx={{ color: 'green' ,ml: 1, cursor: 'pointer' }}>{values.showPassword ? "Less Details" : "More Details" }</Link>
                 </CardContent>
-                <Link href={"/events/"+event.id} underline='hover' sx={{ width: 'fit-content', ml: 1, mt: 0.65, color: 'green', cursor: 'pointer' }}>More Details</Link>
               </div>
-              {role === 'admin'  && <CardContent sx={{ p: 0, height: 'fit-content', fontStyle: 'italic', width: '570px', fontSize: '12px' }}>Event ID: {event.id}</CardContent>}
+              {role === 'admin'  && <CardContent sx={{ p: 0, fontStyle: 'italic', width: '570px', fontSize: '12px' }}>Event ID: {event.id}</CardContent>}
             </CardContent>
             </Card>
             </div>
@@ -143,4 +163,5 @@ function Events() {
     </div>
   )
 }
+
 export default Events;
