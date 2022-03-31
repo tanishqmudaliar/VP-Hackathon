@@ -1,6 +1,6 @@
 # VP Techshala
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This website is up and running [VP Techshala](https://vp-techshala.web.app).
 
 ## Available Scripts
 
