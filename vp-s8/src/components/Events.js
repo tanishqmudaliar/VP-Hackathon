@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import emailjs from 'emailjs-com';
 import { db, auth, storage } from '../config/firebase';
-import { onSnapshot, collection, doc } from "firebase/firestore";
+import { onSnapshot, collection, doc, updateDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -23,10 +23,16 @@ import { useUserAuth } from '../context/UserAuthContext';
 function Events() {
   const { user } = useUserAuth();
   const [events, setEvents] = useState([{ name: "null", id: "null" }]);
-  const [displayName, setDisplayName] = useState('');
-  const [email, setEmail] = useState('');
+  const [displayName, setDisplayName] = useState('null');
+  const [email, setEmail] = useState('null');
+  const [number, setNumber] = useState('null');
+  const [dob, setDob] = useState('null');
+  const [rollno, setRollno] = useState('null');
+  const [department, setDepartment] = useState('null');
+  const [bio, setBio] = useState('null');
   const [role, setRole] = useState('');
   const [profile, setProfile] = useState('null');
+  const [open, setOpen] = React.useState(false);
   const [values, setValues] = useState({
     password: '',
     showPassword: false,
@@ -75,9 +81,15 @@ function Events() {
     const profileRef = ref(storage, `profile/${currentuser.uid}.png`)
     const docRef = doc(db, `users/${currentuser.uid}`)
     onSnapshot(docRef, (doc) => {
-        setRole(doc.data().role)
-        setEmail(doc.data().email)
-        setDisplayName(doc.data().displayName)
+      setRole(doc.data().role)
+      setDisplayName(doc.data().displayName)
+      setEmail(doc.data().email)
+      setNumber(doc.data().number)
+      setRollno(doc.data().rollno)
+      setDob(doc.data().dob)
+      setNumber(doc.data().number)
+      setDepartment(doc.data().department)
+      setBio(doc.data().bio)
     })
     getDownloadURL(profileRef)
     .then((url) => {
@@ -85,6 +97,18 @@ function Events() {
     })
   });
   }, []);
+
+  const registerEvent = async (e) => {
+    e.preventDefault();
+    const usersCollRef = doc(db, `events/${user.uid}`)
+    updateDoc(usersCollRef, {displayName, number, dob, rollno, department, participatedAt: new Date()})
+        .then(
+            console.log("Success")
+        )
+        .catch(error => {
+            console.log(error.message)
+        })
+  }
 
   return (
     <div>
@@ -152,7 +176,7 @@ function Events() {
                   <Link underline='none' onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} sx={{ color: 'green' ,ml: 1, cursor: 'pointer' }}>{values.showPassword ? "Less Details" : "More Details" }</Link>
                 </CardContent>
               </div>
-              {role === 'admin'  && <CardContent sx={{ p: 0, fontStyle: 'italic', width: '570px', fontSize: '12px' }}>Event ID: {event.id}</CardContent>}
+              <CardContent sx={{ p: 0, fontStyle: 'italic', width: '570px', fontSize: '12px' }}>Event ID: {event.id}</CardContent>
             </CardContent>
             </Card>
             </div>

@@ -51,6 +51,8 @@ function Footer() {
             Vidyalankar Polytechnic is among top engineering polytechnics of the state offering engineering diploma education to Std 10th students.
             Vidyalankar Polytechnic is approved by AICTE, New Delhi and Government of Maharashtra.
             It is affiliated to Maharashtra State Board of Technical Education (MSBTE), Mumbai.
+
+            <div className='name' >© 2022 TechConnected, Inc</div>
         </div>
         <div className='ft3'>
             <h1>Contact Us</h1>
