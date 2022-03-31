@@ -90,8 +90,8 @@ function Footer() {
             <h1>Website</h1>
             <Link href="/home" underline='hover' sx={{ height: '20px', mt: -3.5, color: 'orange' }}>Home</Link>
             <Link href="/events" underline='hover' sx={{ height: '20px', mt: -3.5, color: 'orange' }}>Events</Link>
-            <Link href="/images" underline='hover' sx={{ height: '20px', mt: -3.5, color: 'orange' }}>Images</Link>
-            <Link href="/videos" underline='hover' sx={{ height: '20px', mt: -3.5, color: 'orange' }}>Videos</Link>
+            <Link href="/gallery/images" underline='hover' sx={{ height: '20px', mt: -3.5, color: 'orange' }}>Images</Link>
+            <Link href="/gallery/videos" underline='hover' sx={{ height: '20px', mt: -3.5, color: 'orange' }}>Videos</Link>
             <Link href="/contactus" underline='hover' sx={{ height: '20px', mt: -3.5, color: 'orange' }}>Contact Us</Link>
         </div>
     </div>

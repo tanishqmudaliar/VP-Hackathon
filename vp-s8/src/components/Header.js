@@ -92,12 +92,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openGallery, setOpenGallery] = React.useState(false);
-  const [openEvents, setOpenEvents] = React.useState(false);
   const navigate = useNavigate();
-
-  function handleOpenEvents(){
-     setOpenEvents(!openEvents);
-  }
 
   function handleOpenGallery(){
     setOpenGallery(!openGallery);
@@ -123,15 +118,14 @@ export default function Header() {
     navigate('/home');
   }
 
-  const navigateEvents = () => {
-    navigate('/events');
-  }
-
   const navigateImage = () => {
     navigate('/gallery/images');
   }
   const navigateVideos = () => {
     navigate('/gallery/videos');
+  }
+  const navigateEvents = () => {
+    navigate('/events');
   }
 
   return (
@@ -218,46 +212,14 @@ export default function Header() {
         </DrawerHeader>
         <Divider />
         <List sx={{ display: 'grid', placeItems: 'center' }}>
-        <ListItem button onClick={handleOpenEvents} sx={{ width: '90%', borderRadius: 3, mb: 1, '&:hover' : { background: '#ebebeb' } }}>
+        <ListItem button onClick={navigateEvents} sx={{ width: '90%', borderRadius: 3, mb: 1, '&:hover' : { background: '#ebebeb' } }}>
           <ListItemIcon sx={{ display: 'grid', placeItems: 'center' }}>
             <EmojiEventsIcon />
           </ListItemIcon>
-          <ListItemText sx={{ display: 'grid', placeItems: 'center' }}>
+          <ListItemText sx={{ display: 'grid', placeItems: 'center', ml: -7 }}>
             Events
           </ListItemText>
-          <ListItemIcon sx={{ display: 'grid', placeItems: 'center' }}>
-            {openEvents ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ListItemIcon>
         </ListItem>
-        <Collapse in={openEvents} timeout={500} unmountOnExit>
-          <List component="div" sx={{ display: 'grid', placeItems: 'center', width: 200 }}>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
-              <ListItemText>
-                2022
-              </ListItemText>
-            </ListItem>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
-              <ListItemText>
-                2021
-              </ListItemText>
-            </ListItem>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
-              <ListItemText>
-                2020
-              </ListItemText>
-            </ListItem>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
-              <ListItemText>
-                2019
-              </ListItemText>
-            </ListItem>
-            <ListItem button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
-              <ListItemText>
-                2018
-              </ListItemText>
-            </ListItem>
-          </List>
-        </Collapse>
         <ListItem button onClick={handleOpenGallery} sx={{ width: '90%', borderRadius: 3, mb: 1, '&:hover' : { background: '#ebebeb' } }}>
           <ListItemIcon sx={{ display: 'grid', placeItems: 'center' }}>
             <CollectionsIcon />

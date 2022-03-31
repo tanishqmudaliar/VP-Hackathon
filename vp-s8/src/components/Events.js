@@ -216,7 +216,7 @@ function Events() {
             </div>
           ))}
           </div>
-          <Snackbar open={snackbar} onClose={handleClose}>
+          <Snackbar open={snackbar} autoHideDuration={5000} onClose={handleClose}>
             <Alert onClose={handleCloseSnackBar} severity="success" sx={{ width: '100%' }}>
               Registeration successful!
             </Alert>
