@@ -72,7 +72,7 @@ function Events() {
   function sendEmail(e) {
     e.preventDefault()
 
-    emailjs.sendForm('vidyalankar_vp9', 'template_vp9', e.target, 'lRRWXKzeM_Bk6-g3j')
+    emailjs.sendForm('vidyalankar_vp9', 'registered_vp9', e.target, 'lRRWXKzeM_Bk6-g3j')
     const participatedCollRef = doc(db, `events/${eventID}/participated/${email}`)
     setDoc(participatedCollRef, {displayName, number, dob, rollno, department, participatedAt: new Date()})
       .then(() => {
@@ -127,7 +127,7 @@ function Events() {
         <Header />
         <div className='events'>
           <div className='ep1'>
-            <Card sx={{ m: 1, display: 'flex', pb: 2, mb: 0, borderBottom: '1px solid black' }}>
+            <Card sx={{ m: 1, display: 'flex', pb: 2, borderBottom: '1px solid black' }}>
               <Avatar src={profile} alt={displayName}  sx={{ width: '3cm', height: '3cm', ml: '1vw', mt: 4 }}/>
               <Box sx={{ display: 'grid', textAlign: 'left'}}>
                 <CardContent sx={{ fontSize: '20px', height: '40px', p: 0, pt: 3, pl: 2, color: 'black' }}>
@@ -141,7 +141,7 @@ function Events() {
                 </CardContent>
               </Box>
             </Card>
-            {role === 'admin' && <Button href="/events/create-edit-events" variant='contained' color="success" sx={{ mx: 1, mt: 1, width: '96%' }}>Create/Edit Events</Button>}
+            {role === 'admin' && <Button href="/events/create-edit-events" variant='contained' color="success" sx={{ mx: 1, width: '96%' }}>Create/Edit Events</Button>}
             {role === 'admin' && <Participants />}
           </div>
           <div className='ep2'>
@@ -181,7 +181,6 @@ function Events() {
                     <form className='registerform' onSubmit={sendEmail}>
                       <input readOnly className='sendemail' value={displayName} type="text" name="displayName"/>
                       <input readOnly className='sendemail' value={email} type="text" name="user_email"/>
-                      <textarea readOnly className='sendemail' value={displayName} text="text" name="message"></textarea>
                       <TextField required onChange={(e) => setEventID(e.target.value)} label='Event ID' color='success' variant='outlined' sx={{ mx: 1 }}/>
                       <Button type='submit' color='success' variant='contained' sx={{ mx: 1, mt: 1 }} >Register</Button>
                     </form>

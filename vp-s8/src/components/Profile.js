@@ -135,6 +135,7 @@ function Profile() {
                     <Form onSubmit={handleSubmit}>
                     <Stack spacing={2}>
                         <TextField
+                            required
                             fullWidth
                             id="name"
                             label="Name"
@@ -144,6 +145,7 @@ function Profile() {
                             onChange={(e) => setDisplayName(e.target.value)}
                         />
                         <TextField
+                            required
                             fullWidth
                             id="email"
                             label="Email"
@@ -157,6 +159,7 @@ function Profile() {
                         />
                         <Box>
                             <TextField
+                                required
                                 type="number"
                                 id="number"
                                 label="Number"
@@ -167,6 +170,7 @@ function Profile() {
                                 sx={{ width: '49%', mr: '2%' }}
                             />
                             <TextField
+                                required
                                 id="date"
                                 label="Date Of Birth"
                                 type="date"
@@ -181,6 +185,7 @@ function Profile() {
                         </Box>
                         <Box>
                         <TextField
+                            required
                             fullWidth
                             id="rollno"
                             label="Roll No"
@@ -193,6 +198,7 @@ function Profile() {
                         <FormControl sx={{ width: '49%' }}>
                             <InputLabel id="demo-simple-select-label" color='success'>Department</InputLabel>
                             <Select
+                                required
                                 displayEmpty
                                 labelId="dpeartment"
                                 id="department"
