@@ -29,6 +29,7 @@ function Events() {
   const { user } = useUserAuth();
   const [events, setEvents] = useState([{ name: "null", id: "null" }]);
   const [eventID, setEventID] = useState('');
+  const [userID, setUserID] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [number, setNumber] = useState('');
@@ -74,7 +75,7 @@ function Events() {
 
     emailjs.sendForm('vidyalankar_vp9', 'registered_vp9', e.target, 'lRRWXKzeM_Bk6-g3j')
     const participatedCollRef = doc(db, `events/${eventID}/participated/${email}`)
-    setDoc(participatedCollRef, {displayName, number, dob, rollno, department, participatedAt: new Date()})
+    setDoc(participatedCollRef, {userID, profile, displayName, number, dob, rollno, department, participatedAt: new Date()})
       .then(() => {
           setSnackbar(true)
       }, (error) => {
@@ -98,6 +99,7 @@ function Events() {
     const profileRef = ref(storage, `profile/${currentuser.uid}.png`)
     const docRef = doc(db, `users/${currentuser.uid}`)
     onSnapshot(docRef, (doc) => {
+      setUserID(doc.id)
       setRole(doc.data().role)
       setDisplayName(doc.data().displayName)
       setEmail(doc.data().email)
