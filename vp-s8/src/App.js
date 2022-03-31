@@ -3,7 +3,7 @@ import './App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import { db, auth } from './config/firebase';
-import { onSnapshot, collection } from "firebase/firestore";
+import { onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc } from 'firebase/firestore';
 import Login from './components/Login';
@@ -19,20 +19,13 @@ import CreateEditEvents from './components/CreateEditEvents';
 import DetailedEvent from './components/DetailedEvent';
 
 function App() {
-  const [events, setEvents] = useState([{ name: "null", id: "null" }]);
-  const [displayName, setDisplayName] = useState('');
-
-  useEffect(() => {
-    onSnapshot(collection(db, "events"), (snapshot) =>
-    setEvents(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-  )
-  }, [])
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentuser) => {
       const docRef = doc(db, `users/${currentuser.uid}`)
       onSnapshot(docRef, (doc) => {
-          setDisplayName(doc.data().email)
+          setEmail(doc.data().email)
       })
     });
   }, []);
@@ -45,15 +38,13 @@ function App() {
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/signup' element={<SignUp />} />
           <Route exact path='/home' element={<HomePage />} />
-          <Route exact path={'/profile/:id'+displayName} element={<Profile />} />
+          <Route exact path={'/profile/:id'+email} element={<Profile />} />
           <Route exact path='/events' element={<Events />} />
           <Route exact path='/events/create-edit-events' element={<CreateEditEvents />} />
           <Route exact path='/gallery/images' element={<Images />} />
           <Route exact path='/gallery/videos' element={<Videos />} />
           <Route exact path='/contactus' element={<ContactUs />} />
-          {events.map(() => (
-            <Route path={'/events/:id'} element={<DetailedEvent />}/>
-          ))}
+          <Route path={'/events/:id'} element={<DetailedEvent />}/>
           <Route exact path="/404" element={<PageNotFound />} />
           <Route exact path="*" element={<Navigate to="/404" />} />
         </Routes>

@@ -11,33 +11,48 @@ import {
   Box,
   Button,
   Link,
+  Menu,
+  TextField,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import emailjs from 'emailjs-com';
 import { db, auth, storage } from '../config/firebase';
-import { onSnapshot, collection, doc, updateDoc } from "firebase/firestore";
+import { onSnapshot, collection, doc, setDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../context/UserAuthContext';
+import Participants from './Participants';
 
 function Events() {
   const { user } = useUserAuth();
   const [events, setEvents] = useState([{ name: "null", id: "null" }]);
-  const [displayName, setDisplayName] = useState('null');
-  const [email, setEmail] = useState('null');
-  const [number, setNumber] = useState('null');
-  const [dob, setDob] = useState('null');
-  const [rollno, setRollno] = useState('null');
-  const [department, setDepartment] = useState('null');
-  const [bio, setBio] = useState('null');
+  const [eventID, setEventID] = useState('');
+  const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState('');
+  const [number, setNumber] = useState('');
+  const [dob, setDob] = useState('');
+  const [rollno, setRollno] = useState('');
+  const [department, setDepartment] = useState('');
   const [role, setRole] = useState('');
-  const [profile, setProfile] = useState('null');
-  const [open, setOpen] = React.useState(false);
+  const [profile, setProfile] = useState('');
   const [values, setValues] = useState({
-    password: '',
-    showPassword: false,
+    desc: '',
+    showDesc: false,
   });
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const [snackbar, setSnackbar] = React.useState(false);
   const navigate = useNavigate();
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -46,7 +61,7 @@ function Events() {
   const handleClickShowPassword = () => {
     setValues({
       ...values,
-      showPassword: !values.showPassword,
+      showDesc: !values.showDesc,
     });
   };
 
@@ -55,13 +70,15 @@ function Events() {
   };
 
   function sendEmail(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     emailjs.sendForm('vidyalankar_vp9', 'template_vp9', e.target, 'lRRWXKzeM_Bk6-g3j')
-      .then((result) => {
-          console.log(result.text);
+    const participatedCollRef = doc(db, `events/${eventID}/participated/${email}`)
+    setDoc(participatedCollRef, {displayName, number, dob, rollno, department, participatedAt: new Date()})
+      .then(() => {
+          setSnackbar(true)
       }, (error) => {
-          console.log(error.text);
+          console.log(error);
       });
       e.target.reset()
 }
@@ -89,7 +106,6 @@ function Events() {
       setDob(doc.data().dob)
       setNumber(doc.data().number)
       setDepartment(doc.data().department)
-      setBio(doc.data().bio)
     })
     getDownloadURL(profileRef)
     .then((url) => {
@@ -98,17 +114,13 @@ function Events() {
   });
   }, []);
 
-  const registerEvent = async (e) => {
-    e.preventDefault();
-    const usersCollRef = doc(db, `events/${user.uid}`)
-    updateDoc(usersCollRef, {displayName, number, dob, rollno, department, participatedAt: new Date()})
-        .then(
-            console.log("Success")
-        )
-        .catch(error => {
-            console.log(error.message)
-        })
-  }
+  const handleCloseSnackBar = (reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackbar(false);
+  };
 
   return (
     <div>
@@ -140,7 +152,8 @@ function Events() {
               Events Completed: 0
               </CardContent>
             </Card>
-            {role === 'admin' && <Button href="/events/create-edit-events" variant='contained' color="success" sx={{ m: 1, mt: 0, width: '96%' }}>Create/Edit Events</Button>}
+            {role === 'admin' && <Button href="/events/create-edit-events" variant='contained' color="success" sx={{ mx: 1, mt: 0, width: '96%' }}>Create/Edit Events</Button>}
+            {role === 'admin' && <Participants />}
           </div>
           <div className='ep2'>
           {events.map((event) => (
@@ -150,30 +163,51 @@ function Events() {
               component="img"
               sx={{ width: '300px' }}
               image={event.eventThumbnailURL}
-              alt="Live from space album cover"
+              alt={displayName}
             />
             <CardContent sx={{ flex: '1 0 auto', textAlign: 'left', mt: -1 }}>
             <div className='etitle'>
               <CardContent className="event_title" sx={{ fontSize: '40px', height: '40px', p: 0 }} >
-                <Link href={"/events/"+event.id} underline='hover' sx={{ height: '40px', width: 'fit-content', color: 'black', cursor: 'pointer', display: 'flex' }}>{event.eventTitle}</Link> 
+                {event.eventTitle}
               </CardContent>
-              {role === 'user' && 
-                <form onSubmit={sendEmail}>
-                <input readOnly className='sendemail' value={displayName} type="text" name="displayName"/>
-                <input readOnly className='sendemail' value={email} type="text" name="user_email"/>
-                <textarea readOnly className='sendemail' value={displayName} text="text" name="message"></textarea>
-                {user && <Button type='submit' color="success" variant='contained'>Register</Button>}
-                </form>
+              {role === 'user' && <div>
+                <Button
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  color="success"
+                  variant='contained'>
+                    Register
+                  </Button>
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-button',
+                    }}
+                  >
+                    <form className='registerform' onSubmit={sendEmail}>
+                      <input readOnly className='sendemail' value={displayName} type="text" name="displayName"/>
+                      <input readOnly className='sendemail' value={email} type="text" name="user_email"/>
+                      <textarea readOnly className='sendemail' value={displayName} text="text" name="message"></textarea>
+                      <TextField required onChange={(e) => setEventID(e.target.value)} label='Event ID' color='success' variant='outlined' sx={{ mx: 1 }}/>
+                      <Button type='submit' color='success' variant='contained' sx={{ mx: 1, mt: 1 }} >Register</Button>
+                    </form>
+                  </Menu>
+                </div>
               }
               {!user && <Button onClick={handleLogin} color="success" variant='contained' >Register</Button>}
               </div>
               <div className='eventDesc'>
-              <h1 onChange={handleChange('password')}>{values.showPassword ? event.eventDesc : event.eventBrief }</h1>
+              <h1 onChange={handleChange('desc')}>{values.showDesc ? event.eventDesc : event.eventBrief }</h1>
               </div>
               <div className='efooter'>
                 <CardContent className='event_footer' sx={{ p: 0, pt: 1 , fontStyle: 'italic', width: 'fit-content' }}>
                   From {event.eventTimeStart} to {event.eventTimeEnd}
-                  <Link underline='none' onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} sx={{ color: 'green' ,ml: 1, cursor: 'pointer' }}>{values.showPassword ? "Less Details" : "More Details" }</Link>
+                  <Link underline='none' onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} sx={{ color: 'green' ,ml: 1, cursor: 'pointer' }}>{values.showDesc ? "Less Details" : "More Details" }</Link>
                 </CardContent>
               </div>
               <CardContent sx={{ p: 0, fontStyle: 'italic', width: '570px', fontSize: '12px' }}>Event ID: {event.id}</CardContent>
@@ -182,6 +216,11 @@ function Events() {
             </div>
           ))}
           </div>
+          <Snackbar open={snackbar} onClose={handleClose}>
+            <Alert onClose={handleCloseSnackBar} severity="success" sx={{ width: '100%' }}>
+              Registeration successful!
+            </Alert>
+          </Snackbar>
         </div>
         <Footer />
     </div>

@@ -47,7 +47,7 @@ function ContactUs() {
             <h1>Contact Us</h1>
             <input readOnly className='sendemail' value={role} type="text" name="role"/>
             <input readOnly className='sendemail' value={displayName} type="text" name="displayName"/>
-            <input readOnly className='sendemail' value={email} type="text" name="user_email"/>
+            <input required readOnly className='sendemail' value={email} type="text" name="user_email"/>
             <TextField required multiline minRows={6} maxRows={10} color='success' type="text" name="message" label="Message" variant="outlined" sx={{ m: 2 }} />
             <Button type="submit" color='success' variant="contained" sx={{ mx: 2, mb: 2 }}>Submit</Button>
             {error && <Alert severity='error' sx={{ mx: 2, mb: 2 }} >{error}</Alert>}

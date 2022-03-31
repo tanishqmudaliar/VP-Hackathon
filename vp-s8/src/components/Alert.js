@@ -49,7 +49,9 @@ function Alert() {
                 }}
             >
                 {events.map(event => (
-                    <ListItem>New event:<h1 className='alertitle'>{event.eventTitle}</h1></ListItem>
+                    <div key={event.id}>
+                        <ListItem>New event:<h1 className='alertitle'>{event.eventTitle}</h1></ListItem>
+                    </div>
                 ))}
             </Menu>
         </div>

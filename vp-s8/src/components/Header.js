@@ -269,7 +269,7 @@ export default function Header() {
             {openGallery ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </ListItemIcon>
         </ListItem>
-        <Collapse in={openGallery} timeout={500} unmountOnExit>
+        <Collapse in={openGallery} timeout={300} unmountOnExit>
           <List component="div" sx={{ display: 'grid', placeItems: 'center', width: 200 }}>
             <ListItem onClick={navigateImage} button sx={{ width: '90%', borderRadius: 3, mb: 1, textAlign: 'center', '&:hover' : { background: '#ebebeb' } }}>
               <ListItemIcon>

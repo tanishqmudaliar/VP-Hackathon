@@ -88,8 +88,8 @@ function CreateEditEvents() {
                     <Form onSubmit={handleSubmit} className='cform'>
                         <TextField onChange={(e) => setEventID(e.target.value)} required color='success' label="Event ID" variant='outlined' sx={{ mb: 1 }}/>
                         <TextField onChange={(e) => setEventTitle(e.target.value)} required color='success' label="Event Title" variant='outlined' sx={{ mb: 1 }}/>
-                        <TextField onChange={(e) => setEventBrief(e.target.value)} required color='success' label="Event Brief" variant='outlined' sx={{ mb: 1 }} multiline/>
-                        <TextField onChange={(e) => setEventDesc(e.target.value)} required color='success' label="Event Description" variant='outlined' sx={{ mb: 1 }} multiline/>
+                        <TextField onChange={(e) => setEventBrief(e.target.value)} required color='success' label="Event Brief" variant='outlined' sx={{ mb: 1 }} multiline maxRows={5}/>
+                        <TextField onChange={(e) => setEventDesc(e.target.value)} required color='success' label="Event Description" variant='outlined' sx={{ mb: 1 }} multiline maxRows={10} />
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
                             <TextField
                                 onChange={(e) => setEventTimeStart(e.target.value)}
