@@ -141,18 +141,7 @@ function Events() {
                 </CardContent>
               </Box>
             </Card>
-            <Card sx={{ m: 1, display: 'flex', mt: 0 }}>
-              <CardContent sx={{ height: 'min-content' }}>
-              Events Participated: 3
-              </CardContent>
-              <CardContent sx={{ height: 'min-content' }}>
-              Upcomming Events: 4
-              </CardContent>
-              <CardContent sx={{ height: 'min-content' }}>
-              Events Completed: 0
-              </CardContent>
-            </Card>
-            {role === 'admin' && <Button href="/events/create-edit-events" variant='contained' color="success" sx={{ mx: 1, mt: 0, width: '96%' }}>Create/Edit Events</Button>}
+            {role === 'admin' && <Button href="/events/create-edit-events" variant='contained' color="success" sx={{ mx: 1, mt: 1, width: '96%' }}>Create/Edit Events</Button>}
             {role === 'admin' && <Participants />}
           </div>
           <div className='ep2'>
