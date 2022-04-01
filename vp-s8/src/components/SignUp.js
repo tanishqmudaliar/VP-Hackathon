@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { setDoc, doc } from 'firebase/firestore';
 import { db } from '../config/firebase.js';
 import { Form } from 'react-bootstrap';
-import { Button, TextField, Link, Alert, InputAdornment, Typography, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { Button, TextField, Link, Alert, InputAdornment, Typography, FormControlLabel, Radio, RadioGroup, IconButton } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function SignUp() {
   const [displayName, setDisplayName] = useState("");
@@ -17,7 +18,21 @@ function SignUp() {
   const [role, setRole] = useState("");
   const [error, setError] = useState("");
   const { signUp } = useUserAuth();
-  let navigate = useNavigate();
+  const [values, setValues] = useState({
+    showPassword: false,
+  });
+  const navigate = useNavigate();
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleChange = (e) => {
     const target = e.target
@@ -57,16 +72,63 @@ function SignUp() {
             <img src={logo} alt="logo" className='logo-login'/>
             <h1>Create an account</h1>
             <div className='spform1'>
-              <TextField required type="text" color='success' id="name" label="Name" variant="outlined" onChange={(e) => setDisplayName(e.target.value)} sx={{ width: '90%', my: 2 }}/>
-              <TextField required type="number" color='success' id="number" label="Number" variant="outlined" onChange={(e) => setNumber(e.target.value)} sx={{ width: '90%', mb: 2 }} InputProps={{
-                startAdornment: 
-                <InputAdornment position="start">
-                  <Typography sx={{ mx: -2 }}>
-                    +91
-                  </Typography>
-                </InputAdornment>}}/>
-              <TextField required type="email" color='success' id="email" label="Email" variant="outlined" onChange={(e) => setEmail(e.target.value)} sx={{ width: '90%', mb: 2 }} />
-              <TextField required type="password" color='success' id="password" label="Password" variant="outlined" onChange={(e) => setPassword(e.target.value)} sx={{ width: '90%' }}/>
+              <TextField
+                required
+                type="text"
+                color='success'
+                id="name"
+                label="Name"
+                variant="outlined"
+                onChange={(e) => setDisplayName(e.target.value)}
+                sx={{ width: '90%', my: 2 }}
+              />
+              <TextField
+                required
+                type="number"
+                color='success'
+                id="number"
+                label="Number"
+                variant="outlined"
+                onChange={(e) => setNumber(e.target.value)}
+                sx={{ width: '90%', mb: 2 }}
+                InputProps={{
+                  startAdornment: 
+                  <InputAdornment position="start">
+                    <Typography sx={{ mx: -2 }}>
+                      +91
+                    </Typography>
+                  </InputAdornment>
+                }}
+              />
+              <TextField
+                required
+                type="email"
+                color='success'
+                id="email"
+                label="Email"
+                variant="outlined"
+                onChange={(e) => setEmail(e.target.value)}
+                sx={{ width: '90%', mb: 2 }}
+              />
+              <TextField
+                required
+                type={values.showPassword ? 'text' : 'password'}
+                color='success'
+                id="password"
+                label="Password"
+                variant="outlined"
+                onChange={(e) => setPassword(e.target.value)}
+                sx={{ width: '90%' }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
               <RadioGroup
                 row
               >
