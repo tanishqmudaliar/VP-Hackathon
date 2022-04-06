@@ -32,23 +32,29 @@ function App() {
 
   return (
     <div className="App">
-      <UserAuthContextProvider>
-        <Routes>
-          <Route exact path='/' element={<HomePage />} />
-          <Route exact path='/login' element={<Login />} />
-          <Route exact path='/signup' element={<SignUp />} />
-          <Route exact path='/home' element={<HomePage />} />
-          <Route exact path={'/profile/:id'+email} element={<Profile />} />
-          <Route exact path='/events' element={<Events />} />
-          <Route exact path='/events/create-edit-events' element={<CreateEditEvents />} />
-          <Route exact path='/gallery/images' element={<Images />} />
-          <Route exact path='/gallery/videos' element={<Videos />} />
-          <Route exact path='/contactus' element={<ContactUs />} />
-          <Route path={'/events/:id'} element={<DetailedEvent />}/>
-          <Route exact path="/404" element={<PageNotFound />} />
-          <Route exact path="*" element={<Navigate to="/404" />} />
-        </Routes>
-      </UserAuthContextProvider>
+      <div className='pc_view'>
+        <UserAuthContextProvider>
+          <Routes>
+            <Route exact path='/' element={<HomePage />} />
+            <Route exact path='/login' element={<Login />} />
+            <Route exact path='/signup' element={<SignUp />} />
+            <Route exact path='/home' element={<HomePage />} />
+            <Route exact path={'/profile/:id'+email} element={<Profile />} />
+            <Route exact path='/events' element={<Events />} />
+            <Route exact path='/events/create-edit-events' element={<CreateEditEvents />} />
+            <Route exact path='/gallery/images' element={<Images />} />
+            <Route exact path='/gallery/videos' element={<Videos />} />
+            <Route exact path='/contactus' element={<ContactUs />} />
+            <Route path={'/events/:id'} element={<DetailedEvent />}/>
+            <Route exact path="/404" element={<PageNotFound />} />
+            <Route exact path="*" element={<Navigate to="/404" />} />
+          </Routes>
+        </UserAuthContextProvider>
+      </div>
+      <div className='mobile_view'>
+        <h1>Comming Soon</h1>
+        This is website is not yet developed for mobile view!
+      </div>
     </div>
   );
 }

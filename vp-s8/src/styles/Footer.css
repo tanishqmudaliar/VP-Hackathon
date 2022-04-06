@@ -1,5 +1,5 @@
 .footer {
-    height: 30vh;
+    height: fit-content;
     background-color: maroon;
     color: white;
     display: flex;
