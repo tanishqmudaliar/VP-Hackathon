@@ -6,6 +6,7 @@
 /.firebase
 *.firebaserc
 firebase.json
+*.gitignore
 
 # dependencies
 /node_modules
