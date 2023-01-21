@@ -16,7 +16,7 @@ function Participants() {
 
             setSendRequest(false);
          }
-    }, [sendRequest])
+    }, [sendRequest, eventID])
 
     const handleChangeOne = (e) => {
         e.preventDefault();
