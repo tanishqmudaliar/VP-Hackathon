@@ -2,7 +2,7 @@
 
 #important files
 /src/config
-/.firebase
+/firebase
 /build
 .firebaserc
 firebase.json
