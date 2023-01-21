@@ -2,6 +2,10 @@
 
 #important files
 /src/config
+/.firebase
+/build
+.firebaserc
+firebase.json
 
 # dependencies
 /node_modules
