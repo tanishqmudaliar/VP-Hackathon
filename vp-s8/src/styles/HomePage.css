@@ -1,0 +1,58 @@
+.homepage {
+    height: fit-content;
+}
+
+.vpbuilding {
+    margin-top: 1.5cm;
+    background-image: url(../assets/vp_building.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 94vh;
+}
+
+.vpbuilding2 {
+    background-image: url(../assets/vp_building.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90vh;
+}
+
+.our_projects > h1 {
+    color: green;
+    font-family: 'Playfair Display', serif;
+}
+
+.our_projects {
+    display: grid;
+    place-items: center;
+}
+
+.projects {
+    display: flex;
+}
+
+.intro_text {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.intro_text > h1 {
+    color: green;
+    font-family: 'Playfair Display', serif;
+}
+
+.footer_carousel {
+    display: grid;
+    place-items: center;
+}
+
+@media screen and (max-width: 20cm) {
+    .vpbuilding{
+        height: 20vh;
+        margin-top: 1.5cm;
+    }
+
+    .projects{
+        display: grid;
+    }
+}

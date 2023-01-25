@@ -1,0 +1,40 @@
+.profile {
+    margin-left: 20px;
+    margin-right: 20px;
+    height: fit-content;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.section1 {
+    width: 30vw;
+    border-radius: 10px;
+    margin-top: 2.3cm;
+    padding: 20px;
+    background-color: #dbdbdb;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.sectionh1 {
+    font-family: 'Libre Franklin', sans-serif;
+    margin: 0%;
+    font-size: large;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.section2 > h1 {
+    font-family: 'Libre Franklin', sans-serif;
+    margin: 0%;
+    margin-bottom: 20px;
+}
+
+.section2 {
+    width: 60vw;
+    border-radius: 10px;
+    margin-top: 2.3cm;
+    padding: 20px;
+    background-color: #dbdbdb;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
